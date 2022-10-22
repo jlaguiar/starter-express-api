@@ -1,5 +1,7 @@
 import SendDiscord from "./service/SendDiscord.js";
 import express from 'express'
+import dontEnv from 'dotenv'
+dontEnv.config()
 
 const sendDiscord = new SendDiscord();
 const app = express()
