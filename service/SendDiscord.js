@@ -7,12 +7,12 @@ export default class SendDiscord {
 
     async send(dataGit) {
         const msgDicord = {
-            content: `${dataGit.projectName} \n Versão liberada: ${dataGit.tag} 
+            content: `${dataGit.projectName} \nVersão liberada: ${dataGit.tag} 
             \n ${dataGit.message} 
             \n\n Link do projeto: ${dataGit.urlRepository}`
         }
-
-        if (dataGit.tag.contains('-')) {
+        console.log(dataGit.tag.includes('-'))
+        if (dataGit.tag.includes('-')) {
             await axios.post(webhookDiscordUrlBeta, msgDicord)
         } else{
             await axios.post(webhookDiscordUrlWork, msgDicord)

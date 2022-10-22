@@ -8,6 +8,7 @@ app.use(express.json());
 
 app.all('/', (req, res) => {
     console.log("Just got a request!")
+    console.log(process.env.TESTE || 1)
     res.send('Yo!')
 })
 
@@ -18,8 +19,9 @@ app.all('/', (req, res) => {
 // object_kind == tag_push
 app.post('/integracao', async (request,response) => {
     const body = request.body
+    console.log(body)
 
-    if(body.object_kind === 'tag_push') {
+    if(body.object_kind === 'tag_push' && body.checkout_sha !== null) {
         const tag =  body.ref.split('/')[2]
         let dataGit = {
             projectName: body.project.name,
