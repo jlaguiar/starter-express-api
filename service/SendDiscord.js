@@ -9,7 +9,7 @@ export default class SendDiscord {
         const msgDicord = {
             content: `${dataGit.projectName} \nVersão liberada: ${dataGit.tag} 
             \n ${dataGit.message} 
-            \n\n Link do projeto: ${dataGit.urlRepository}`
+            \n\n Link do projeto: ${dataGit.urlRelease}`
         }
 
         if (dataGit.tag.includes('-')) {

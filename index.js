@@ -23,17 +23,27 @@ app.post('/integracao', async (request,response) => {
     const body = request.body
     console.log(body)
 
-    if(body.object_kind === 'tag_push' && body.checkout_sha !== null) {
-        const tag =  body.ref.split('/')[2]
+    if(body.object_kind === 'release') {
+
         let dataGit = {
             projectName: body.project.name,
-            message: body.message,
-            urlRepository: body.repository.git_http_url,
-            tag
+            message: body.description,
+            urlRelease: body.url,
+            tag: body.tag
         }
         await sendDiscord.send(dataGit)
     }
 
+    // if(body.object_kind === 'tag_push' && body.checkout_sha !== null) {
+    //     const tag =  body.ref.split('/')[2]
+    //     let dataGit = {
+    //         projectName: body.project.name,
+    //         message: body.message,
+    //         urlRepository: body.repository.git_http_url,
+    //         tag
+    //     }
+    //     await sendDiscord.send(dataGit)
+    // }
 
 })
 app.listen(process.env.PORT || 3000)
