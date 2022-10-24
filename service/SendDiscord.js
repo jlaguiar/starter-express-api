@@ -1,11 +1,13 @@
 import axios from "axios";
-
-const webhookDiscordUrlBeta = process.env.TOKEN_DISCORD_DADOS_TECNICOS
-const webhookDiscordUrlWork = process.env.TOKEN_DISCORD_WORK
+import project from "../model/Project.js"
 
 export default class SendDiscord {
 
     async send(dataGit) {
+        console.log(dataGit)
+        const dataProject = await project.findOne({projectNameGit: dataGit.projectName});
+        console.log(dataProject)
+
         const msgDicord = {
             content: `${dataGit.projectName} \nVersão liberada: ${dataGit.tag} 
             \n ${dataGit.message} 
@@ -13,9 +15,9 @@ export default class SendDiscord {
         }
 
         if (dataGit.tag.includes('-')) {
-            await axios.post(webhookDiscordUrlBeta, msgDicord)
-        } else{
-            await axios.post(webhookDiscordUrlWork, msgDicord)
+            await axios.post(dataProject.urlWebHookBeta, msgDicord)
+        } else {
+            await axios.post(dataProject.urlWebHookProduction, msgDicord)
         }
     }
 }
